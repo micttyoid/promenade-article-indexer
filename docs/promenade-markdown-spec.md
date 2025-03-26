@@ -1,12 +1,12 @@
 # Promenade Extended Markdown Format Specification
 
 **Author:** Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
-**Version:** 0.2.0
+**Version:** 0.2.1
 **Date:** 2025-03-26
 
 > Markdown + _YAML_ Metadata
 
-# Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [File Structure](#file-structure)
