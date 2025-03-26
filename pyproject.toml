@@ -1,0 +1,47 @@
+# pep-0621
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+#where = ["src"]                   # Look for packages in the "src" directory
+exclude = ["scripts", "tests" ]           # Exclude these directories
+include = ["article_indexer*"]  # Include only matching "article_indexer*"
+
+[project]
+name = "article-indexer"
+description = "Static indexer, internal tooling for Promenade"
+dynamic = ["version"]
+authors = [{ name = "Luke Yoo", email = "w.lukeyoo@gmail.com" }]
+maintainers = [{ name = "Luke Yoo", email = "w.lukeyoo@gmail.com" }]
+license = { text = "BSD-3-Clause" }
+keywords = ["promenade", "static-indexing"]
+dependencies = [
+    "dataclasses-json==0.6.7",
+    "Deprecated==1.2.18",
+    "marshmallow==3.26.1",
+    "mypy-extensions==1.0.0",
+    "packaging==24.2",
+    "typing-inspect==0.9.0",
+    "typing_extensions==4.12.2",
+    "wrapt==1.17.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=22.0.0",
+    "flake8>=4.0.0", # linter
+    "mypy>=0.900",   # type checker
+    "pytest>=6.0.0",
+]
+test = ["pytest-cov>=3.0.0"]
+
+[project.urls]
+repository = "https://github.com/micttyoid/promenade-article-indexer"
+#changelog = ""
+#homepage = ""
+#documentation = ""
+
+[project.scripts]
+indexer = "article_indexer.cmdline:main_cli"
