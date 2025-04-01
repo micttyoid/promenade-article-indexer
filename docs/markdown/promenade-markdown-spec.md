@@ -1,8 +1,8 @@
 # Promenade Extended Markdown Format Specification
 
 **Author:** Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
-**Version:** 0.2.1
-**Date:** 2025-03-26
+**Version:** 0.2.2
+**Date:** 2025-03-31
 
 > Markdown + _YAML_ Metadata
 
@@ -64,7 +64,7 @@ Processing begins immediately after the closing `---` of the metadata block (or 
 
 ## 5. Parsing Rules
 
-1. If the document begins with `---` on the first line:
+1. If the document begins with `---` on the first line(5.a):
 
     - Parse as _YAML_ until the next `---` on its own line
     - The remaining content is markdown
@@ -73,11 +73,17 @@ Processing begins immediately after the closing `---` of the metadata block (or 
     - The entire document is processed as markdown
     - Blank lines around the _YAML_ block are ignored
 
+### 5.a. Parsing Frontmatter
+
+The parsing can be expressed in regular expression:
+- _Javascript_: `/^(---|\+\+\+)$[^]*?^\1$(\r\n|\r|\n)/m`
+
+
 ## 6. Examples
 
 Minimal document with no metadata(just markdown):
 
-```md
+```yaml
 # Foo
 
 Cras sollicitudin erat eget est hendrerit, ut ullamcorper velit sodales. Sed
@@ -98,7 +104,7 @@ quam consectetur fermentum nec non lectus.
 
 Document with metadata:
 
-```md
+```yaml
 ---
 title: 'Sample Document'
 author: Jane Doe
@@ -120,8 +126,8 @@ bibendum tortor. Sed tincidunt mauris sed aliquam pharetra.
 
 ## Baz
 
-ligula dui dignissim dui, ut viverra neque lorem sed mi. Aliquam a nunc ac
-quam consectetur fermentum nec non lectus.
+ligula dui dignissim dui, ut viverra neque lorem sed mi. Aliquam a nunc 
+ac quam consectetur fermentum nec non lectus.
 ```
 
 ## 7. Compatibility
@@ -134,7 +140,7 @@ _YAML_ parsing should be lenient(ignore unsupported fields but preserve them)
 
 ## \_
 
-This specification clearifies:
+This specification clarifies:
 
 -   It's standard markdown first and foremost
 -   _YAML_ metadata is an optional addition
