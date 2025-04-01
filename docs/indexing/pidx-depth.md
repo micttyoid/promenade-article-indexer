@@ -1,5 +1,9 @@
 ## Equivalency by `max-depth` expression
 
+**Author:**: Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
+**Date:**: 2025-03-26
+**Status**: Draft
+
 `depth: 1` in metadata is same as not having any metadata. Following index files are equivalent.
 
 ```yaml

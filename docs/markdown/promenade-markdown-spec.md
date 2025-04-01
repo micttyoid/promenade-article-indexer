@@ -1,7 +1,7 @@
 # Promenade Extended Markdown Format Specification
 
-**Author:** Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
-**Date:** 2025-03-26
+**Author:**: Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
+**Date:**: 2025-03-26
 **Status**: Draft
 
 > Markdown + _YAML_ Metadata
