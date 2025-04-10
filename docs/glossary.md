@@ -1,11 +1,17 @@
 # Glossary
 
+## D
+
+**Depth**
+A quantity of coverage that the index file handles. It is represented by the
+value of attribute, `depth`.
+
 ## I
 
 **Index Entry**
 A path at the top level of indexing. An full indexing begins from Index Entry.
 
-**Index(Index File)**
+**Index (Index File)**
 A set of data or a file that carries meta data of other files in coverage.
 
 **Indexee**
@@ -14,8 +20,7 @@ A value of `indexee` in metadata, or the represented file.
 **Indexing Elements**
 index entry, indexee.
 
-## D
+## M
 
-**Depth**
-A quantity of coverage that the index file handles. It is represented by the
-value of attribute, `depth`.
+**Meta Data (Metadata)**
+A set of data, found in the index file or the indexee.
