@@ -21,6 +21,7 @@ npm-debug.log*
 
 # Python
 __pycache__/
+*.egg-info/
 *.py[cod]
 *.pyc
 *.pyo

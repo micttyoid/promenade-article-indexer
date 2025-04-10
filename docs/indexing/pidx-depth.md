@@ -4,9 +4,10 @@
 **Date:**: 2025-03-26
 **Status**: Draft
 
-`depth: 1` in metadata is same as not having any metadata. Following index files are equivalent.
+In metadata, `depth: 1` is treated the same as not having any metadata.
+Therefore, the two following index files are equivalent.
 
-```yaml
+```yaml filename='.pidx'
 ---
 indexee: 'foo/hello-world.md'
 title: How we like to greet to the world
@@ -38,7 +39,7 @@ bar: 'quix'
 
 
 
-```yaml
+```yaml filename='.pidx'
 depth: 1
 ---
 indexee: 'foo/hello-world.md'

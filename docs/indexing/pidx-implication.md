@@ -1,8 +1,11 @@
-# Implcations in indexing elements
+# Implications in Indexing Elements
 
-**Author:**: Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
-**Date:**: 2025-03-31
+**Author**: Luke Yoo &lt;[w.lukeyoo@gmail.com](mailto:w.lukeyoo@gmail.com)&gt;
+**Date**: 2025-03-31
 **Status**: Draft
+
+## Overview
+
 
 ## Implication for Index Entry
 
@@ -29,6 +32,7 @@ indexee: '/foo/bar/baz/hello-world.md'
 title: 'How we like to greet to the world'
 ```
 
-**Rationale:** a path expression of Indexee has to be absolute to the
+**Rationale**: A path expression of Indexee has to be absolute to the
 Index Entry. When such query-like result leads to the next request for
 the target data, the path can be used directly.
+
