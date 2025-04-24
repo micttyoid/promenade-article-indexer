@@ -1,5 +1,7 @@
 from pathlib import Path
 from typing import Callable
+from article_indexer.traverse.condies import if_path_then
+from article_indexer.traverse.process import process_directory
 from warnings import warn
 
 
@@ -28,17 +30,52 @@ def upward(begin_path: Path, fn: Callable[[Path], bool]):
             return current_path
 
 
+# TODO: symlink?
+def downward(
+    begin_path: Path,
+    fn_file: Callable[[Path], bool],
+    fn_dir: Callable[[Path], bool],
+):
+    return process_directory(begin_path, fn_file, fn_dir)
+
+
+maybe = """
+def downward(
+    begin_path: Path,
+    fn_dir: Callable[[Path], bool],
+    fn_file: Callable[[Path], bool],
+):
+    return if_path_then(
+        lambda path: path.is_dir() # fmt: skip
+    )(
+        lambda path: _downward_fn_dir_loop(path, fn_dir, fn_file),  # fmt: skip
+        lambda path: fn_file(path) # fmt: skip
+    )(
+        begin_path
+    )
+
+
 def downward(begin_path: Path, fn: Callable[[Path], bool]):
-    """
+
     Recursively traverse all child directories starting from begin_path,
     applying the given function to each directory.
-    """
-
+ 
     # TODO: not sure if fn should determine
-    if not fn(begin_path):
-        return
+
+    return lambda path: if_path_then(
+        lambda path: path.is_dir() # fmt: skip
+    )(
+        _has_valid_index_file(path), # fmt: skip        
+        lambda path: True # fmt: skip
+    )
 
     # Recursively process all subdirectories
-    for child in begin_path.iterdir():
-        if child.is_dir():
-            downward(child, fn)
+    if begin_path.is_dir():
+        for child_path in begin_path.iterdir():
+            print(child_path)
+            downward(child_path, fn)
+    else:
+        return fn(begin_path)
+
+        # if child.is_dir():
+"""
