@@ -1,18 +1,20 @@
 from typing import Callable, TypeVar, Iterable, Optional
 from functools import reduce
 
-T = TypeVar("T")
-S = TypeVar("S")
+# functools.reduce not really in use so far
 
-"""
-def shortcircuit_reduce(
-    func: Callable[[S, T], Optional[S]], iterable: Iterable[T], initial: S
-) -> Optional[S]:
+T = TypeVar("T")
+
+hmm = """
+def shortcircuit(
+    reducer: Callable[[bool, T], bool],
+    iterable: Iterable[T],
+) -> bool:
     it = iter(iterable)
-    acc = initial
+    acc = True
     try:
         while True:
-            acc = func(acc, next(it))
+            acc = reducer(acc, next(it))
             if acc is None:
                 return None
     except StopIteration:
@@ -20,14 +22,14 @@ def shortcircuit_reduce(
 """
 
 
-def shortcircuit_reduce(
-    func: Callable[[S, T], bool],
+# the initial value does not
+def shortcircuit(
+    reducer: Callable[[bool, T], bool],
     iterable: Iterable[T],
-    initial: S,
 ) -> bool:
-    acc = initial
+    acc = True
     for item in iterable:
-        acc = func(acc, item)
+        acc = reducer(acc, item)
         if not acc:  # Short-circuit on False
             return False
     return True

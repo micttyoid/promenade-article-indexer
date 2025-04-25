@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Callable
-from article_indexer.utils.reduce import shortcircuit_reduce
+from article_indexer.utils.reduce import shortcircuit
 
 
 # Wrapper for iterdir on shortcuit
@@ -23,7 +23,7 @@ def process_directory(
             return fn_dir(path) and process_directory(path, fn_file, fn_dir)
         return True
 
-    return shortcircuit_reduce(reducer, root.iterdir(), True)
+    return shortcircuit(reducer, root.iterdir())
 
 
 def if_path_then(predicate: Callable[[Path], bool]) -> Callable[[Path], bool]:
