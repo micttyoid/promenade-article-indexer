@@ -12,7 +12,8 @@ python3 -m pytest --cov=article_indexer
 ## CLI
 
 ```sh
-python3 -m article-indexer
+python3 -m article_indexer
+#python3 -m article-indexer
 ```
 
 
