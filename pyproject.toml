@@ -13,19 +13,22 @@ authors = [{ name = "Luke Yoo", email = "w.lukeyoo@gmail.com" }]
 maintainers = [{ name = "Luke Yoo", email = "w.lukeyoo@gmail.com" }]
 license = { text = "BSD-3-Clause" }
 keywords = ["promenade", "static-indexing"]
-dependencies = [
-    "dataclasses-json==0.6.7",
-    "packaging==24.2"
-]
+dependencies = ["dataclasses-json==0.6.7", "packaging==24.2"]
 
 [project.optional-dependencies]
 dev = [
     "black>=22.0.0",
     "flake8>=4.0.0", # linter
     "mypy>=0.900",   # type checker
-    "pytest>=6.0.0",
+    # standalone
+    "coverage",
 ]
-test = ["pytest-cov>=3.0.0"]
+
+test = [
+    "pytest>=6.0.0",
+    # plugin of coverage.py work with pytest
+    "pytest-cov>=3.0.0",
+]
 
 [project.scripts]
 article-indexer = "article_indexer.cmdline:main_cli" # Create a CLI executable
@@ -35,6 +38,12 @@ repository = "https://github.com/micttyoid/promenade-article-indexer"
 #changelog = ""
 #homepage = ""
 #documentation = ""
+
+[tool.coverage.run]
+omit = [
+    # May omit later at some maturity or by --cov-ignore=tests/fixtures/*
+    #"tests/fixtures/*", "tests/conftest.py"
+]
 
 [tool.setuptools.packages.find]
 #where = ["src"]               # Look for packages in the "src" directory
