@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Callable
-from article_indexer.traverse.condies import if_path_then
-from article_indexer.traverse.process import process_directory
+from article_indexer.traverse.general import process_directory
 from warnings import warn
 
 
