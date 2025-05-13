@@ -1,27 +1,59 @@
-import os
-from typing import List, Optional, Union
-
-# TODO: maybe intialize without OS
+from contextlib import contextmanager
+from typing import Callable, Dict, List
 
 
-# A singleton import-around for configuration
 class Config:
-    def __init__(self):
-        # hmm...
-        self.NAME: str = os.getenv("NAME", "article-indexer")
+    _instance = None
+    _observers = []
 
-        self.DEBUG: bool = os.getenv("DEBUG", "False").lower() == "true"
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.DEBUG = False
+            cls._instance.LENIENT = False
+            cls._instance.ENVIRONMENT = "development"
+        return cls._instance
 
-        # ex. Validators keep going with warnings without termination
-        self.LENIENT: bool = os.getenv("LENIENT", "False").lower() == "true"
+    def __setattr__(self, key, value):
+        old = getattr(self, key, None)
+        super().__setattr__(key, value)
+        if key in ["DEBUG", "LENIENT", "ENVIRONMENT"] and old != value:
+            self._notify(key, old, value)
 
-    def show_config(self) -> dict:
-        return {
-            "NAME": self.NAME,
-            "DEBUG": self.DEBUG,
-            "ENVIRONMENT": self.ENVIRONMENT,
-        }
+    def _notify(self, key, old, new):
+        for callback in self._observers:
+            callback(key, old, new)
+
+    def subscribe(self, callback):
+        self._observers.append(callback)
+
+    def unsubscribe(self, callback: Callable[[str, bool, bool], None]):
+        if callback in self._observers:
+            self._observers.remove(callback)
+
+    @classmethod
+    @contextmanager
+    def temporary_config(cls, **overrides):
+        instance = cls()
+        changes = {}
+
+        for key, new_value in overrides.items():
+            old_value = getattr(instance, key)
+            setattr(instance, key, new_value)
+            changes[key] = old_value
+            instance._notify(key, old_value, new_value)
+
+        try:
+            yield
+        finally:
+            for key, old_value in changes.items():
+                setattr(instance, key, old_value)
+                instance._notify(key, overrides[key], old_value)
+
+    @classmethod
+    def reset(cls):
+        cls._instance = None
+        cls._observers = []
 
 
-# this
 config = Config()
